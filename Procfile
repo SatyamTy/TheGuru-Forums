@@ -1,0 +1,1 @@
+web gunicron project.wsgi:application --log.file -
