@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: PatrickHand-Regular; src: url('PatrickHand-Regular.ttf');     
+}
 html{
     font-size:14px;
     font-family: cursive;
@@ -12,7 +15,7 @@ html{
 }
 
 body {
-    font-family: cursive;
+    font-family: 'PatrickHand-Regular';
     background-color: #CBF1F5;
 }
 a{
