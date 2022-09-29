@@ -11,53 +11,44 @@
     </head>
     <body>
         <header>
-            <div class="navbar">
-                <nav class="navigation hide" id="navigation">
-                    <ul class="nav-list">
-                        <span class="close-icon" onclick="showIconbar()"><i class="fa fa-close"></i></span>
-                        <li class="nav-item">
-                            <a href="{% url 'home' %}">Home</a>
-                        </li>
-                        {% if request.user.is_authenticated %}
-                        <li class="nav-item">
-                            <a href="{% url 'create_post' %}">Create</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'logout' %}">Logout</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a href="{% url 'signup' %}">SignUp</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'signin' %}">SignIn</a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a href="{% url 'about_site' %}">About Site</a>
-                        </li>
+            <nav class="navbar">
+                <!-- LOGO -->
+                <div class="logo">Forums</div>
+                <!-- NAVIGATION MENU -->
+                <ul class="nav-links">
+                <!-- USING CHECKBOX HACK -->
+                <input type="checkbox" id="checkbox_toggle" />
+                <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+                <!-- NAVIGATION MENUS -->
+                <div class="menu">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li class="services">
+                    <a href="/">Categories</a>
+                    <!-- DROPDOWN MENU -->
+                    <ul class="dropdown">
+                        {% for forum in forums %}
+                        <li><a href="{{forum.get_url}}">{{forum.title}}</a></li>
+                        {% endfor %}
                     </ul>
-                </nav>
-                <a href="#" class="bar-icon" id="iconBar" onclick="hideIconBar()"><i class="fa fa-bars"></i></a>
-                <div class="site-banner" id="SiteBanner">
-                    <div class="site-logo"><img src="{% static 'tg-logo.png' %}" width="70" height="60"></div>
-                    <div class="site-name">Forums</div>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'create_post' %}">Create</a></li>
+                    <li><a href="{% url 'logout' %}">LogOut</a></li>
+                    {% else %}
+                    <li><a href="{% url 'signin' %}">SignIn</a></li>
+                    <li><a href="{% url 'signup' %}">SignUp</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'about_site' %}">About Us</a></li>
                 </div>
+                </ul>
+            </nav>
+            <!-- SEARCH BOX -->
+            <div class="Search-bar">
+                <form action="/search_result/" role="form" method="GET" class="search-box">
+                        <input type="text" name="q" id="" placeholder="search anything...">
+                        <button type="submt" name="search"><img src="static/search.png"></button>
+                </form>
             </div>
-            <!-- Search Box -->
-            <form action="{% url 'search_result' %}" role="form" method="GET">
-                <div class="Search-box">
-                    <div>
-                        <select name="search-box" id="">
-                            <option value="Everything">Everything</option>
-                            <option value="Titles">Titles</option>
-                            <option value="Descriptions">Descriptions</option>
-                        </select>
-                        <input type="text" name="q" id="" placeholder="search...">
-                        <button type="submt" name="search"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-            </form>
         </header>
         {% block content %}
         {% endblock content %}
