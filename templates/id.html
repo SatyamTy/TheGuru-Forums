@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <br><br><br>
+        <div class="id-id-container">
+            <div class="id-container">   
+                <div class="id-header">
+                    <center><h2>THE GURU</h2></center>
+                    <center><h3>SR. SEC. CO-EDUCATIONAL SCHOOL<h3></center>
+                    <center><p>KASHMIRI KOTHI, DELHI-NAINITAL ROAD <br>BAREILLY-243122(U.P) SESSION 2022-2023</P></center>
+                </div>
+                <hr>
+                <center><h2>AFFILIATED TO CBSE</h2></center> 
+                <div class="id-table">
+                    {% load static%}
+                    <img src="{{ info.pic.url}}" class="id-pic" alt="ID Image">
+                    <table>
+                        <tr><th>Name: </th> <td>{{info.name}}</td></tr>
+                        <tr><th>Class &amp Sec : </th> <td>{{info.Class}} {{info.section}}</td></tr>
+                        <tr><th>Father's Name: </th> <td>{{info.father_name}}</td></tr>
+                        <tr><th>Mother's Name: </th> <td>{{info.mother_name}}</td></tr>
+                        <tr><th>Mobile No: </th> <td>{{info.mobile}}</td></tr>
+                        <tr><th>Adress: </th> <td>{{info.Adress}}</td></tr>
+                    </table>
+                    <hr>
+                    <center><h5>Contact No. 8755334204,9927074042</h5></center>
+                </div>
+            </div>
+            <center>Want to create another one? Click <a href="{%url 'create_id'%}"> here </a></center>
+        </div>
+            {% endblock content %}

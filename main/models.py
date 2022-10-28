@@ -34,6 +34,25 @@ class Author(models.Model):
             self.slug = slugify(self.title)
         super(Author, self).save()
 
+class id_info(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name=models.CharField( max_length=50)
+    Class = models.IntegerField(max_length=2)
+    section =models.CharField( max_length=1)
+    father_name=models.CharField( max_length=50)
+    mother_name=models.CharField( max_length=50)
+    mobile=models.IntegerField( max_length=10)
+    Adress = HTMLField()
+    pic = ResizedImageField(size=[100 , 160], quality=100, upload_to="id-pics", default=None, blank=True)    
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return self.post.get_absolute_url()
+
+    # class Meta:
+    #     verbose_name_plural = "ids"
+
 class Category(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=400, unique=True, blank=True)

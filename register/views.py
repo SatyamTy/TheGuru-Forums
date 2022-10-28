@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from main.models import Author
 from register.forums import UpdateForm
 from django.contrib.auth import logout as lt
 from django.contrib import messages
@@ -44,13 +45,24 @@ def signin(request):
 def update_profile(request):
     context = {}
     user = request.user 
-    form = UpdateForm(request.POST, request.FILES)
+    try:
+        author = Author.objects.get(user=request.user)
+        authors = Author.objects.all()
+    except:
+        author = '1'
+        authors = '2'
+    if author in authors:
+        form = UpdateForm(request.POST, request.FILES, instance=author)
+    else:
+        form = UpdateForm(request.POST, request.FILES)
     if request.method == "POST":
         if form.is_valid():
             update_profile = form.save(commit=False)
             update_profile.user = user
             if update_profile.profile_pic == None:
-                update_profile.profile_pic= "authors/blank-profile-picture.pfp"
+                update_profile.profile_pic= "authors/blank-profile-picture.png"
+            if update_profile.slug == None:
+                update_profile.slug = user
             update_profile.save()
             return redirect("home")
 

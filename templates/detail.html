@@ -36,7 +36,7 @@
                 {% if post.closed == True %}
                 <div>This post is closed!</div>
                 {% else %}
-                {% if request.user.is_authenticated %}
+                {% if request.user.is_authenticated and author in authors%}
                 <form action="." method="post">
                     {% csrf_token %}
                     <div class="comment-area hide" id="comment-area">
@@ -81,19 +81,21 @@
             <!--Reply Area-->
             {% if post.closed == True %}
             <div> </div>
-            {% else %}
+            {% elif request.user.is_authenticated and author in authors%}
             <form action="." method="post">
                 {% csrf_token %}
                 <div class="comment-area hide" id="comment{{comment.id}}">
                     <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                    <input type="submit" value="submit" name="reply-form">
+                    <input type="submit" value="submit" name="reply-form" class='reply-button'>
                     <input type="hidden" name="comment-id" value="{{comment.id}}">
                 </div>
             </form>
+            {% else %}
+            <div style="background-color:#fff;color:#000;font-weight:bolder;padding:20px;width:100%;"> You need to <a href="{% url 'signin' %}"><b>login</b></a> to comment or reply.! </div>        
             {% endif %}
 
             <div class = "reply-section hide" id="reply{{comment.id}}">
-                <div "replies"><font color="grey" ><h3>Replies: </h3></font><hr></div>
+                <div "replies"><font color="grey" ><h3 class='reply-hr'>Replies: </h3></font><hr ></div>
 
                 <!--Reply Section-->
                 {% for reply in comment.replies.all %}
@@ -102,7 +104,7 @@
                         <div class="authors">
                             <div class="Username"><a href="#">{{reply.user.fullname}}</a></div>
                             <div class="role">Role</div>
-                            <img src="{{reply.user.profile_pic.url}}">
+                            <img src="{{ reply.user.profile_pic.url }}">
                             <div>Posts: <u>{{reply.user.num_posts}}</u></div>
                             <div>Points: <u>{{reply.user.points}}</u></div>                        
                         </div>

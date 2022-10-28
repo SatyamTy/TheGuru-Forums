@@ -1,11 +1,11 @@
+from msilib.schema import Condition
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Author, Category, Post, Comment, Reply
+from .models import Author, Category, Post, Comment, Reply, id_info
 from .utils import update_views
-from .forms import PostForm
+from .forms import PostForm,id_form
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 
 def home(request):
     forums = Category.objects.all()
@@ -29,8 +29,10 @@ def home(request):
 
 def detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
-    if request.user.is_authenticated:
+    try: 
         author = Author.objects.get(user=request.user)
+    except:
+        author = '1'
     
     if "comment-form" in request.POST:
         comment = request.POST.get("comment")
@@ -46,6 +48,8 @@ def detail(request, slug):
 
 
     context = {
+        "author":author,
+        "authors":Author.objects.all(),
         "post":post,
         "title": post.title,
     }
@@ -78,6 +82,10 @@ def posts(request, slug):
 def create_post(request):
     context = {}
     form = PostForm(request.POST or None)
+    try: 
+        author = Author.objects.get(user=request.user)
+    except:
+        author = '1'
     if request.method == "POST":
         if form.is_valid():
             print("\n\n its valid")
@@ -89,9 +97,57 @@ def create_post(request):
             return redirect("home")
     context.update({
         "form": form,
-        "title": "Create New Post"
+        "title": "Create New Post",
+        "author": author,
+        "authors": Author.objects.all(), 
     })
     return render(request, "create_post.html", context)
+
+@login_required
+def create_id(request):
+    context = {}
+    try:
+        id = id_info.objects.get(user=request.user)
+        id_all = id_info.objects.all()
+    except:
+        id="1"
+        id_all="2"
+
+    if id in id_all:
+        form = id_form(request.POST, request.FILES, instance=id)
+
+    else:
+        form = id_form(request.POST, request.FILES)
+
+
+    if request.method == "POST":
+            new_id = form.save(commit=False)
+            new_id.user = request.user
+            if new_id.pic == None:
+                new_id.pic= "id-pics/default.png"
+            new_id.save()
+            return redirect("id")
+    context.update({
+        "title": "Generate Your ID",
+        'form': id_form(),
+    })
+    return render(request, "id_form.html", context)
+
+@login_required
+def id(request):
+    context = {}
+    try: 
+        author = id_info.objects.get(user=request.user)
+    except:
+        author = ''
+    if author == '':
+        return redirect('create_id')
+    context.update({
+        "title": "Your ID",
+        'form': id_form(),
+        "info": author,
+    })
+    return render(request, "id.html", context)
 
 def latest_posts(request):
     posts = Post.objects.all().filter(approved=True)[:10]
@@ -109,3 +165,4 @@ def search_result(request):
 def about_site(request):
 
     return render(request, "about.html")
+

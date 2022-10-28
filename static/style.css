@@ -397,7 +397,7 @@ footer{
     font-size: 20px;
 }
 .reply-section .replies{
-    margin-top: 40px;
+    
     color:  grey;
     font-size: 40px;
 }
@@ -407,15 +407,59 @@ footer{
 .comments-container{
     margin-top: 50px;
 }
+.reply-hr{
+    margin-top: 30px;
+}
 
 /* About page */
 .about{
     text-align: center;
 }
 
+/* Id Page */
+/* .id-id-container{
+    display: flex;
+} */
 
+.id-container{
+    border : 1px;
+    border-color: black;
+    border-radius: 10px;
+    width: 425px;
+    background-color: white;
+    margin-top: 50px;
+    font-family:Arial, Helvetica, sans-serif;
 
-
+    margin: auto;
+}
+.id-container h2{
+    color: red;
+    font-size: 12px;
+}
+.id-header{
+    background-color: rgb(252, 252, 172);
+}
+.id-header h2{
+    color: darkblue;
+    font-size: 20px;
+}
+.id-header h3{
+    color: red;
+    font-size: 14px;
+}
+.id-header p{
+    color: darkblue;
+    font-size: 10px;
+}
+.id-pic{
+    float: right;
+    width: 100px;
+    margin-right: 10px;
+}
+.id-table th{
+    width: 120px;
+    text-align: left;
+}
 
 
 

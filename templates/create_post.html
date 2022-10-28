@@ -3,11 +3,14 @@
 {% block content %}
 
 <h1 style="text-align:center; margin-block:50px; color:grey;">hey, {{user}}! Write A new post</h1>
-
+{% if request.user.is_authenticated and author in authors%}
 <form method="POST" enctype="multipart/form-data" style="margin-left:150px;">
     {% csrf_token %}
     {{form|crispy}}
     <input type="submit" value="save" style="margin-block:50px;">
 </form>
+{% else %}
+<div style="background-color:#fff;color:#000;font-weight:bolder;padding:20px;width:100%;"> You need to <a href="{% url 'update_profile' %}"><b>become a author</b></a> to create post.! </div>        
+{% endif %}
 
 {% endblock content %}
