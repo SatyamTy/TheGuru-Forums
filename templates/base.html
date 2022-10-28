@@ -34,11 +34,11 @@
                     {% if request.user.is_authenticated %}
                     <li><a href="{% url 'create_post' %}">Create</a></li>
                     <li><a href="{% url 'logout' %}">LogOut</a></li>
+                    <li><a href="{% url 'id' %}">ID</a></li>
                     {% else %}
                     <li><a href="{% url 'signin' %}">SignIn</a></li>
                     <li><a href="{% url 'signup' %}">SignUp</a></li>
                     {% endif %}
-                    <li><a href="{% url 'id' %}">ID</a></li>
                     <li><a href="{% url 'about_site' %}">About Us</a></li>
                 </div>
                 </ul>
