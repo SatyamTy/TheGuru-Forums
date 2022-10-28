@@ -8,7 +8,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
-    DEBUG=(bool, False)
+    DEBUG=(bool, False),
+    KEY=(str, "django-insecure-mq&$4spt%(1(yns&$qgv!tlyy7t(w0ud0kc64&42&ulvx($r3$")
 )
 
 # SECURITY WARNING: keep the secret key used in production secret!
