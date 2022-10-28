@@ -1,4 +1,3 @@
-from msilib.schema import Condition
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Author, Category, Post, Comment, Reply, id_info
 from .utils import update_views

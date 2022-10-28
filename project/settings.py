@@ -133,11 +133,4 @@ else:
 MEDIA_ROOT  = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
-CKEDITOR_UPLOAD_PATH = 'uploads/'
-CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_THUMBNAIL_SIZE = (500, 500)
-CKEDITOR_IMAGE_QUALITY = 40
-CKEDITOR_BROWSE_SHOW_DIRS = True
-CKEDITOR_JQUERY_URL = 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
-
 django_heroku.settings(locals())
