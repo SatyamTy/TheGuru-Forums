@@ -120,6 +120,7 @@ def create_id(request):
 
 
     if request.method == "POST":
+        if form.is_valid():
             new_id = form.save(commit=False)
             new_id.user = request.user
             if new_id.pic == None:
