@@ -50,6 +50,9 @@ class id_info(models.Model):
     def get_absolute_url(self):
         return self.post.get_absolute_url()
 
+    # def save(self):
+    #     super(id_info, self).save()
+    
     # class Meta:
     #     verbose_name_plural = "ids"
 
