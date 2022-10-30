@@ -35,19 +35,6 @@ def detail(request, slug):
     except:
         author = '1'
     
-    a = id_info(
-        user = request.user,
-        name = "giberish",
-        Class = 10,
-        section = "A",
-        father_name = "never knew",
-        mother_name = "never met",
-        mobile = 123456789,
-        Adress = "Homeless soo streets",
-        pic = "id-pics/default.png"
-    )
-    a.save()
-    
     if "comment-form" in request.POST:
         comment = request.POST.get("comment")
         new_comment, created = Comment.objects.get_or_create(user=author, content=comment)
